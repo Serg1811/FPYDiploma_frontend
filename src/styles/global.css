@@ -1,0 +1,93 @@
+body {
+  height: 100vh;
+  width: 100%;
+  /* min-width: 640px; */
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 0;
+  left: 0;  
+
+  background-repeat: no-repeat; 
+  background-image: url(/public/img/fon.jpg);
+  background-size: cover;
+  background-position: center;
+  text-align: center; 
+
+  color: #000000;  
+}
+
+a {
+color: inherit;
+text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+html {
+  color-scheme: dark;
+}
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  /* border: 1px solid #ced4da; */
+  -webkit-text-fill-color: black !important;
+  -webkit-box-shadow: 0 0 0px 1000px #aedaeb inset !important;
+  
+}
+
+._hidden {
+
+display: flex;
+position: fixed;
+width: 100%;
+height: 100vh;
+top: 0;
+left: 0;
+
+color: #000000;
+background-color: rgba(0, 0, 0, 0.6);
+overflow-y: auto;
+
+z-index: 999;
+}
+
+.input_field {
+
+box-sizing: border-box;
+width: 100%;
+border: none;
+padding-left: 18px;
+vertical-align: middle;
+font-size: 18px;
+color: rgba(0, 0, 0, 1);
+height: 48px;
+background-color: #aedaeb;
+}
+
+.input_field:focus {
+outline: none;
+border: 2px solid #3813f1;
+}
+
+
+button {
+
+box-sizing: border-box;
+border: none;
+font-size: 14px;
+font-weight: bold;
+text-transform: uppercase;
+color: #ffffff;
+
+cursor: pointer;
+background-color: #525152;
+}
+
+button:hover {
+
+background-color: #323232;
+}

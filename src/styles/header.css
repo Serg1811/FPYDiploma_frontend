@@ -1,0 +1,44 @@
+
+.top {
+    margin-top: 50px;
+    display:flex;
+    padding: 0 50px;
+}
+.top-panel {
+
+    width: 100%;
+    height: 100px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    margin: 0;
+    padding: 0;
+    -webkit-text-stroke: 3px black;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 8vh;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .container-person {
+    width: 8vh;
+    height: 8vh;
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .person_image {
+    /* width: 5vw; */
+    height: 5vh;
+    position: center;
+  }
+
+  
