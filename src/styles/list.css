@@ -1,0 +1,21 @@
+.list_item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    box-sizing: border-box;
+    width: 120px;
+    height: 120px;
+    background: #ffffff;
+    border: 2px solid #000;
+    border-radius: 4vh;
+}
+
+.list_item:hover {
+    background-color: rgb(220, 220, 220);
+}
+
+.isActive {
+    border: 3px solid #00b0f5;
+    background-color: rgb(227, 232, 232);
+}

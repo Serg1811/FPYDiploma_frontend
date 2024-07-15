@@ -1,23 +1,30 @@
 import "../../styles/popup.css"
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link,Form,
-    useNavigate,
-   } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { Form,
+  useNavigate,
+} from 'react-router-dom';
 import FieldForm from '../fieldForm'
 import { 
   useRegistrationUserMutation,
- } from "../../app/services/api";
- import { cleanerValidation } from "../../features/validationSlice";
- import { dataRegistrationForm } from "../../lib/data";
- import { parsError } from "../../lib/errorParser";
+} from "../../app/services/api";
+import { useValidation } from "../../hooks/selectors";
+import { resetValidation } from "../../features/validationSlice";
+import { dataRegistrationForm } from "../../lib/data";
+import { parsError } from "../../lib/errorParser";
 
 
 // КОМПОНЕНТ(роут) СТРАНИЦЫ РЕГИСТРАЦИИ
 export default function Registration() {
-  const appState = useSelector((state) => state.validation);
+
+  const { isValidRegistrationForm, values } = useValidation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const body = {
+    email: values.email,
+    username: values.username,
+    password: values.password,
+  };
 
   const [
     addUser,
@@ -26,17 +33,20 @@ export default function Registration() {
 
 // ОТПРАВЛЯЕМ ЗАПРОС НА СЕРВЕР НА РЕГИСТРАЦИЮ ПОЛЬЗОВАТЕЛЯ
   const handleSubmit = async () => {
-    const valid = Object.keys(dataRegistrationForm).map(e => appState[e].result).every(e => e);
-    if (valid) {
-      const body = {};
-      body.email = appState.values.email;
-      body.username = appState.values.username;
-      body.password = appState.values.password;
+    console.log(isValidRegistrationForm)
+    if (isValidRegistrationForm) {
       await addUser(JSON.stringify(body));
-      dispatch(cleanerValidation());
+      // dispatch(resetValidation());
     }
   }
   
+  useEffect(() => {
+    if (addIsSuccess) {
+      console.log('!!!!!');
+      dispatch(resetValidation());
+    }
+  }, [addIsSuccess]);
+    
   if (addIsSuccess) {
     return (
       <div
@@ -67,8 +77,9 @@ export default function Registration() {
         </div>
       </div>
     );
+  };
 
-  }
+
 
   return (
     <div
@@ -88,7 +99,8 @@ export default function Registration() {
               <FieldForm
                 key={index}
                 attribute={atr}
-                text={dataRegistrationForm[atr]}
+                text={dataRegistrationForm[atr].text}
+                type={dataRegistrationForm[atr].type}                
               />
             );
           })}

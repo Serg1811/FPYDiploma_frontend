@@ -1,23 +1,26 @@
-import { useSelector, useDispatch } from 'react-redux';
+import {  useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { useState } from "react";
 import {
-  createEmail,
-  createUsername,
-  createPassword,
-  createPasswordRepeat,
+  // createEmail,
+  // createUsername,
+  // createPassword,
+  // createPasswordRepeat,
+  createAttribute,
   createDataToValues,
 } from '../features/validationSlice';
 import { 
   emailValidation,
   loginValidation,
   passwordValidation,
-  passwordRepeatValidation
+  passwordRepeatValidation,
+  filenameValidation,
 } from '../lib/validation';
+import { useValidation } from '../hooks/selectors';
 
-//КОМПОНЕНТ ПОЛЕЙ ФОРМЫ РЕГИСТРАЦИИ
-export default function FieldForm({attribute, text}) {
-  const appState = useSelector((state) => state.validation);
+//КОМПОНЕНТ ПОЛЕЙ ФОРМЫ registrationForm и loginForm
+export default function FieldForm({attribute, text, type, defaultValue}) {
+  const validationState = useValidation();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   // Показать/скрыть поле пароля
@@ -29,29 +32,51 @@ export default function FieldForm({attribute, text}) {
     username: loginValidation,
     password: passwordValidation,
     passwordRepeat: passwordRepeatValidation,
+    filename: filenameValidation,
   };
 
-  const dispatchFunction = {
-    email: createEmail,
-    username: createUsername,
-    password: createPassword,
-    passwordRepeat: createPasswordRepeat,
+useEffect(() => {
+  if (defaultValue) {
+      const value = {}
+      value [attribute]=defaultValue
+      console.log(Object[attribute]=defaultValue)
+      dispatch(createDataToValues(value));
   }
+},[defaultValue]);
+  // const dispatchFunction = {
+  //   email: createEmail,
+  //   username: createUsername,
+  //   password: createPassword,
+  //   passwordRepeat: createPasswordRepeat,
+  // }
 
   //Подсветка валидации поля ввода 
   const handlers = (e) => {
+    const value = {};
     const target = e.target;
-    const isValid = validation[attribute](target.value, appState.values.password);
-    if (isValid.result) {
-      const value = {};
+    if (defaultValue) {
+      // e.onClick()
+    }
+    // console.log(validationState)
+    console.log(attribute)
+    if (validation[attribute]) {
+      const isValid = validation[attribute](target.value, validationState.values.password);
+      if (isValid.result) {
+        value[attribute] = target.value;
+        dispatch(createDataToValues(value));
+
+        target.style.outline='4px solid green'
+      } else {
+        target.style.outline = '4px solid red';
+      }
+      value[attribute] = isValid;
+      dispatch(createAttribute(value));
+    } else {
       value[attribute] = target.value;
       dispatch(createDataToValues(value));
-
-      target.style.outline='4px solid green'
-    } else {
-      target.style.outline = '4px solid red';
     }
-    dispatch(dispatchFunction[attribute](isValid));
+    // value[attribute] = isValid;
+    // dispatch(createAttribute(value));
   };
 
   return (
@@ -68,14 +93,31 @@ export default function FieldForm({attribute, text}) {
         <div
           className='input__container'
         >
-          <input
-            autoComplete="off"
-            id={`${attribute}`}
-            type={!attribute.includes('password') ? "text" : showPassword ? "text" : "password"}
-            name={attribute}
-            className="input_field"
-            onChange={(e) => handlers(e)}
-          />
+          {(type === 'input') ? (
+            <input
+              className="input_field"
+              autoComplete="off"
+              id={`${attribute}`}
+              type={!attribute.includes('password') ? "text" : showPassword ? "text" : "password"}
+              name={attribute}
+              defaultValue={defaultValue}
+              onChange={(e) => handlers(e)}
+            />
+          ) : (
+            (type ==='textarea') ? (
+              <textarea
+                className="input_field"
+                autoComplete="off"
+                id={`${attribute}`}
+                type='text'
+                name={attribute}
+                defaultValue={defaultValue}
+                onChange={(e) => handlers(e)}
+              />
+            ) : (null)
+          )}
+
+
           {attribute.includes('password') ? (
             <div
               id={`show_${attribute}`}
@@ -90,23 +132,6 @@ export default function FieldForm({attribute, text}) {
               />
             </div>
           ) : (null)}
-        </div>
-        <div
-          className="form__error"
-        >
-          {!appState[attribute].result ? (
-            appState[attribute].message.map((error, index) => {
-              return (
-                <p
-                key={index+1}
-                >
-                  {index+1}. {error}
-                </p>
-              )
-            })
-          ):(
-            null
-          )}
         </div>
       </div>
     </>

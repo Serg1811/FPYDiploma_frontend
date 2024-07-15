@@ -1,7 +1,9 @@
 import "../styles/header.css"
-import { Link, Form, redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate();
 
   return (
     
@@ -13,6 +15,7 @@ const Header = () => {
       >
         <div
           className="logo"
+          onClick={()=> navigate('/')}
         >
           Cloud
         </div>

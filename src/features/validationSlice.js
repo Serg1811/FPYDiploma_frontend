@@ -6,47 +6,37 @@ const initialState = {
   username: {result: undefined, message: []},
   password: {result: undefined, message: []},
   passwordRepeat: {result: undefined, message: []},
-  values :{},
+  filename: {result: undefined, message: []},
+  values :{
+    email: null,
+    username: null,
+    password: null,
+    passwordRepeat: null,
+    filename: null,
+    fileComment: null,
+  },
 };
 
 export const validationSlice = createSlice({
   name: 'validation',
   initialState,
   reducers: {
-    createEmail: (state, action) => {
-      return { ...state, email: action.payload };
-    },
-    createUsername: (state, action) => {
-      return { ...state, username: action.payload };
-    },
-    createPassword: (state, action) => {
-      return { ...state, password: action.payload };
-    },
-    createPasswordRepeat: (state, action) => {
-      return { ...state, passwordRepeat: action.payload };
+    createAttribute: (state, action) => {
+      return { ...state, ...action.payload };
     },
     createDataToValues: (state, action) => {
       return { ...state, values: { ...state.values, ...action.payload } };
     },
-    cleanerValidation: (state) => {
-      return { ...state, 
-        email: {result: undefined, message: []},
-        username: {result: undefined, message: []},
-        password: {result: undefined, message: []},
-        passwordRepeat: {result: undefined, message: []},
-        values :{},
-      }
+    resetValidation: () => {
+      return { ...initialState };
     }
   },
 });
 
 export const {
-  createEmail,
-  createUsername,
-  createPassword,
-  createPasswordRepeat,
+  createAttribute,
   createDataToValues,
-  cleanerValidation,
+  resetValidation,
 } = validationSlice.actions;
 
 export default validationSlice.reducer;

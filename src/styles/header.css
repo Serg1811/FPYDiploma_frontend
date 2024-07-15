@@ -15,18 +15,29 @@
   }
   
   .logo {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
     margin: 0;
-    padding: 0;
+    padding: 0, 50px;
+    /* height: 100px; */
+    width: 200px;
+    /* text-align:center; */
     -webkit-text-stroke: 3px black;
     font-family: 'Open Sans', Arial, sans-serif;
-    font-size: 8vh;
+    font-size: 4vh;
     font-weight: bold;
     color: rgba(0, 0, 0, 0.5);
+    background: #fff;
+    border: 3px solid #000;
+    border-radius: 4vh;
+    cursor: pointer; 
   }
   
   .container-person {
-    width: 8vh;
-    height: 8vh;
+    width: 6vh;
+    height: 6vh;
     background: #fff;
     border: 3px solid #000;
     border-radius: 4vh;
@@ -36,8 +47,7 @@
   }
 
   .person_image {
-    /* width: 5vw; */
-    height: 5vh;
+    height: 4vh;
     position: center;
   }
 

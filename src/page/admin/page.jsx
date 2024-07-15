@@ -1,10 +1,10 @@
 import React from "react";
 
 //КОМПОНЕНТ(роут) СТРАНИЦЫ ПОЛЬЗОВАТЕЛЬСКОГО ИНТЕРФЕЙСА
-export default function UserInterface() {
+export default function Admin() {
   return (
     <div>
-      UserInterface  
+      AdminInterface  
     </div>
   );
 }

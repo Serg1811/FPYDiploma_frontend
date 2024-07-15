@@ -23,17 +23,6 @@
     margin: 8px 0;    
 }
 
-.select {
-
-    -webkit-appearance: none;
-    -moz-appearance: none;
-
-    background-image: url(/public/svg/form-arrows.svg);
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 11px;
-}
-
 .input_recept {
 
     height: 131px;

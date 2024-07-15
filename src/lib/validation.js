@@ -15,8 +15,6 @@ export const emailValidation = (email) => {
 // Валидация логина
 export const loginValidation = (login) => {
   const valid = {message: []}
-  // console.log(/^[A-Z0-9]{4,16}$/i.test(login))
-  // console.log(login)
   if (/^[A-Z0-9]{4,16}$/i.test(login)) {
     valid.result =true
     return valid
@@ -37,7 +35,6 @@ export const loginValidation = (login) => {
 export const passwordValidation = (password) => {
   const valid = {message: []}
   const re = /^(?=.*?[A-Z])(?=(.*[a-z]){0,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,24}$/;
-  // console.log(re.test(password))
   if (re.test(password)) {
     valid.result =true
     return valid
@@ -60,8 +57,22 @@ export const passwordRepeatValidation = (passwordRepeat, password) => {
   const valid = {message: []}
   if (password !== passwordRepeat) {
     valid.result = false;
-    console.log(password);
+
     (password === undefined) ? valid.message.push('НЕКОРРЕКТНЫЙ ПАРОЛЬ!') : valid.message.push('НЕКОРРЕКТНЫЙ ПОВТОРНЫЙ ВВОД ПАРОЛЯ!')
+  } else {
+    valid.result = true;
+  }
+  return valid;
+}
+
+// Валидация имени файла
+
+export const filenameValidation = (filename) => {
+  const valid = {message: []}
+  if (!filename&&filename.trim() === "") {
+    valid.result = false;
+    console.log(filename);
+   valid.message.push('ПОЛЕ "ИМЯ ФАЙЛА" ОБЕЗАТЕЛЬНО ДЛЯ ЗАПОЛНЕНИЯ!')
   } else {
     valid.result = true;
   }

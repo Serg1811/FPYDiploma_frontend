@@ -4,36 +4,43 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Root from './components/Root';
-import RegistrationForm from './components/registration/registrationForm'
-import LoginForm from './components/login/loginForm';
-import UserInterface from './components/user/user';
-import AdminInterface from './components/admin/admin';
+import StartPage from './page/page';
+import Registration from './page/registration/page';
+import Login from './page/login/page';
+import User from './page/user/page';
+import EditNameComment from './page/user/fileId/editNameComment/page';
+import Admin from './page/admin/page';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <StartPage />,
     children: [
       {
         children: [
           {
-            path: '/login',
-            element: <LoginForm />,
+            path: 'login',
+            element: <Login />,
           },
           {
             path: 'registration',
-            element: <RegistrationForm />,
+            element: <Registration />,
           },
           {
-            path: '/user',
-            element: <UserInterface />,
+            path: 'user/',
+            element: <User />,
+            children: [
+              {
+                path: 'file/:fileId/editNameComment',
+                element: <EditNameComment/>
+              },
+            ],
           },
           {
             path: 'admin',
-            element: <AdminInterface />,
+            element: <Admin />,
           },
-        ]
+        ],
       },
     ],
   },

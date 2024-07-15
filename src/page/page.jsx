@@ -1,9 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import Header from './header';
+import Header from '../components/header';
 
 
 //КОМПОНЕНТ(корневой роут) ДОМАШНЕЙ СТРАНИЦЫ ПРИ НЕПРОЙДЕННОЙ АУТЕНТИФИКАЦИИ
-export default function Root() {
+export default function StartPage() {
 
   return (
     <>
